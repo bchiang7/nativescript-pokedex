@@ -1,0 +1,59 @@
+{
+  "name": "nativescript-pokedex",
+  "version": "1.0.0",
+  "description": "A native application built with NativeScript-Vue",
+  "author": "Brittany Chiang <brittany.chiang@gmail.com>",
+  "license": "MIT",
+  "nativescript": {
+    "id": "org.nativescript.application",
+    "templateVersion": "v2",
+    "tns-android": {
+      "version": "6.0.0"
+    },
+    "tns-ios": {
+      "version": "6.0.1"
+    }
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged && lint-staged"
+    }
+  },
+  "dependencies": {
+    "@vue/devtools": "^5.0.6",
+    "nativescript-socketio": "^3.2.1",
+    "nativescript-toasty": "^1.3.0",
+    "nativescript-vue": "^2.4.0",
+    "nativescript-vue-devtools": "^1.2.0",
+    "sass-resources-loader": "^2.0.1",
+    "tns-core-modules": "^6.0.0",
+    "vuex": "^3.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@upstatement/eslint-config": "^0.4.2",
+    "@upstatement/prettier-config": "^0.3.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.2",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-vue": "^5.2.3",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
+    "nativescript-dev-webpack": "^1.0.0",
+    "nativescript-vue-template-compiler": "^2.0.0",
+    "nativescript-worker-loader": "~0.9.0",
+    "node-sass": "^4.9.2",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0",
+    "vue-eslint-parser": "^6.0.4",
+    "vue-loader": "^15.4.0"
+  }
+}
