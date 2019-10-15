@@ -1,37 +1,29 @@
 <template>
   <Page>
-    <ActionBar title="Welcome to NativeScript-Vue!" />
-    <GridLayout columns="*" rows="*">
-      <Label
-        :text="msg"
-        class="message"
-        col="0"
-        row="0"
-      />
-    </GridLayout>
+    <ActionBar title="Pokédex" />
+    <List />
   </Page>
 </template>
 
-<script >
+<script>
+import List from '@/components/List';
+
 export default {
+  name: 'App',
+
+  components: {
+    List,
+  },
+
   data() {
-    return {
-      msg: 'Hello World!',
-    };
+    return {};
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss">
 ActionBar {
-  background-color: #53ba82;
-  color: #ffffff;
-}
-
-.message {
-  vertical-align: center;
-  text-align: center;
-  font-size: 20;
-  color: #333333;
+  background-color: $red;
+  color: $white;
 }
 </style>

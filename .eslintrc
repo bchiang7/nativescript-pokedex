@@ -1,3 +1,6 @@
 {
-  "extends": "@upstatement/eslint-config/vue"
+  "extends": "@upstatement/eslint-config/vue",
+  "rules": {
+    "vue/attribute-hyphenation": ["error", "never"]
+  }
 }

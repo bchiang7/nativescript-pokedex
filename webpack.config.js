@@ -138,6 +138,7 @@ module.exports = env => {
       setImmediate: false,
       fs: 'empty',
       __dirname: false,
+      net: 'empty', // for axios error `Module not found: Error: Can't resolve 'net'`
     },
     devtool: hiddenSourceMap ? 'hidden-source-map' : sourceMap ? 'inline-source-map' : 'none',
     optimization: {
