@@ -14,7 +14,7 @@ Vue.config.silent = TNS_ENV === 'production';
 
 Vue.prototype.$store = store;
 
-// console.log('sdfsddfsdfsd sdffs');
+console.warn('sdfsddfsdfsd sdffs');
 
 new Vue({
   store,

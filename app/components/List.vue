@@ -49,9 +49,10 @@ export default {
       this.$navigateTo(Single, {
         props: { id },
         animated: true,
+        // https://docs.nativescript.org/api-reference/interfaces/_ui_frame_.navigationtransition
         transition: {
-          name: 'fade',
-          duration: 500,
+          name: 'slide',
+          duration: 250,
           curve: 'ease',
         },
       });
