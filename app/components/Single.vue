@@ -1,16 +1,18 @@
 <template>
   <Page>
-    <ActionBar title="Pokédex" />
+    <ActionBar :title="name || single.name" />
     <ScrollView>
-      <StackLayout v-if="pokemon">
-        <Label :text="pokemon.name" />
+      <StackLayout v-if="single">
+        <Label :text="`#${id}`" />
+        <Label :text="name || single.name" />
+        <Image :src="single.sprites.front_default" width="100%" />
       </StackLayout>
     </ScrollView>
   </Page>
 </template>
 
 <script>
-import axios from 'axios';
+import { mapState } from 'vuex';
 
 export default {
   name: 'List',
@@ -20,24 +22,24 @@ export default {
       type: Number,
       default: 0,
     },
+    name: {
+      type: String,
+      default: '',
+    },
   },
 
-  data() {
-    return {
-      pokemon: null,
-    };
+  computed: {
+    ...mapState(['single']),
   },
 
-  mounted() {
+  created() {
     this.getPokemon();
   },
 
   methods: {
     async getPokemon() {
       try {
-        const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${this.id}`);
-        this.pokemon = pokemon.data;
-        // console.log('📣: getPokemon -> this.pokemon ', JSON.stringify(this.pokemon.name));
+        await this.$store.dispatch('setSingle', this.id);
       } catch (e) {
         console.error(e);
       }

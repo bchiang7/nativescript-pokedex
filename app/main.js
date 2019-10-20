@@ -1,8 +1,7 @@
 import Vue from 'nativescript-vue';
-import App from './components/App';
-
 import VueDevtools from 'nativescript-vue-devtools';
-import store from './store';
+import store from '@/store';
+import App from '@/components/App';
 
 /* global TNS_ENV */
 if (TNS_ENV !== 'production') {
@@ -14,7 +13,7 @@ Vue.config.silent = TNS_ENV === 'production';
 
 Vue.prototype.$store = store;
 
-console.warn('sdfsddfsdfsd sdffs');
+console.warn('sdfssdfdfs');
 
 new Vue({
   store,
