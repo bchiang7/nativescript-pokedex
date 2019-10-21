@@ -1,7 +1,7 @@
 <template>
   <ScrollView>
-    <StackLayout>
-      <Label text="Kanto" />
+    <StackLayout class="container">
+      <Label text="Kanto" class="region" />
       <StackLayout v-if="gen1">
         <FlexboxLayout flexWrap="wrap" class="list">
           <StackLayout
@@ -11,14 +11,14 @@
             class="cell"
           >
             <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'kanto')}`" />
-              <Label :text="item.name" />
+              <Label :text="`#${getPokeNum(index, 'kanto')}`" class="number" />
+              <Label :text="item.name" class="name" />
             </StackLayout>
           </StackLayout>
         </FlexboxLayout>
       </StackLayout>
 
-      <Label text="Johto" />
+      <Label text="Johto" class="region" />
       <StackLayout v-if="gen2">
         <FlexboxLayout flexWrap="wrap" class="list">
           <StackLayout
@@ -28,14 +28,14 @@
             class="cell"
           >
             <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'johto')})`" />
-              <Label :text="item.name" />
+              <Label :text="`#${getPokeNum(index, 'johto')})`" class="number" />
+              <Label :text="item.name" class="name" />
             </StackLayout>
           </StackLayout>
         </FlexboxLayout>
       </StackLayout>
 
-      <Label text="Hoenn" />
+      <Label text="Hoenn" class="region" />
       <StackLayout v-if="gen3">
         <FlexboxLayout flexWrap="wrap" class="list">
           <StackLayout
@@ -45,14 +45,14 @@
             class="cell"
           >
             <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'hoenn')}`" />
-              <Label :text="item.name" />
+              <Label :text="`#${getPokeNum(index, 'hoenn')}`" class="number" />
+              <Label :text="item.name" class="name" />
             </StackLayout>
           </StackLayout>
         </FlexboxLayout>
       </StackLayout>
 
-      <Label text="Sinnoh" />
+      <Label text="Sinnoh" class="region" />
       <StackLayout v-if="gen4">
         <FlexboxLayout flexWrap="wrap" class="list">
           <StackLayout
@@ -62,14 +62,14 @@
             class="cell"
           >
             <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'sinnoh')}`" />
-              <Label :text="item.name" />
+              <Label :text="`#${getPokeNum(index, 'sinnoh')}`" class="number" />
+              <Label :text="item.name" class="name" />
             </StackLayout>
           </StackLayout>
         </FlexboxLayout>
       </StackLayout>
 
-      <Label text="Unova" />
+      <Label text="Unova" class="region" />
       <StackLayout v-if="gen5">
         <FlexboxLayout flexWrap="wrap" class="list">
           <StackLayout
@@ -79,8 +79,8 @@
             class="cell"
           >
             <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'unova')}`" />
-              <Label :text="item.name" />
+              <Label :text="`#${getPokeNum(index, 'unova')}`" class="number" />
+              <Label :text="item.name" class="name" />
             </StackLayout>
           </StackLayout>
         </FlexboxLayout>
@@ -143,23 +143,37 @@ export default {
 </script>
 
 <style lang="scss">
+.container {
+  padding: 20;
+}
+
+.region {
+  font-family: $ff-space-mono;
+  font-size: 24;
+  font-weight: 700;
+}
+
 .list {
   width: 100%;
   justify-content: space-between;
 
   .cell {
     width: 50%;
-    height: 100;
-    padding: 5 10;
+    padding: 5;
 
     &__inner {
+      height: 150;
       background-color: #eee;
       border-radius: 10;
       padding: 20;
-    }
 
-    label {
-      text-transform: capitalize;
+      .number {
+        font-family: $ff-space-mono;
+        font-size: 24;
+      }
+      .name {
+        text-transform: capitalize;
+      }
     }
   }
 }

@@ -223,7 +223,7 @@ module.exports = env => {
             {
               loader: 'sass-resources-loader',
               options: {
-                resources: [resolve(__dirname, 'app/app.scss')],
+                resources: [resolve(__dirname, 'app/styles/variables.scss')],
               },
             },
           ],

@@ -21,9 +21,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-ActionBar {
-  background-color: $red;
-  color: $white;
-}
-</style>
+<style lang="scss"></style>

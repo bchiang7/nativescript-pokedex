@@ -13,6 +13,7 @@ const store = new Vuex.Store({
     gen4: null,
     gen5: null,
     single: null,
+    singleSpecies: null,
   },
 
   actions: {
@@ -61,11 +62,18 @@ const store = new Vuex.Store({
 
     setSingle({ commit }, id) {
       commit('SET_SINGLE', null);
-
       return api
         .get(`/pokemon/${id}`)
         .then(response => commit('SET_SINGLE', response.data))
         .catch(error => console.error(`📣: setSingle -> error`, error));
+    },
+
+    setSingleSpecies({ commit }, id) {
+      commit('SET_SINGLE_SPECIES', null);
+      return api
+        .get(`/pokemon-species/${id}`)
+        .then(response => commit('SET_SINGLE_SPECIES', response.data))
+        .catch(error => console.error(`📣: setSingleSpecies -> error`, error));
     },
   },
 
@@ -87,6 +95,9 @@ const store = new Vuex.Store({
     },
     SET_SINGLE: (state, payload) => {
       state.single = payload;
+    },
+    SET_SINGLE_SPECIES: (state, payload) => {
+      state.singleSpecies = payload;
     },
   },
 });
