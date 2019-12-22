@@ -2,27 +2,37 @@ import axios from 'axios';
 
 const api = axios.create({ baseURL: `https://pokeapi.co/api/v2` });
 
-const genOffsets = {
-  kanto: {
+const gens = [
+  {
+    gen: 1,
+    name: 'Kanto',
     offset: 0,
     limit: 151,
   },
-  johto: {
+  {
+    gen: 2,
+    name: 'Johto',
     offset: 151,
     limit: 100,
   },
-  hoenn: {
+  {
+    gen: 3,
+    name: 'Hoenn',
     offset: 251,
     limit: 135,
   },
-  sinnoh: {
+  {
+    gen: 4,
+    name: 'Sinnoh',
     offset: 386,
     limit: 107,
   },
-  unova: {
+  {
+    gen: 5,
+    name: 'Unova',
     offset: 493,
     limit: 156,
   },
-};
+];
 
-export { api, genOffsets };
+export { api, gens };

@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { api, genOffsets } from '@/utils';
-const { kanto, johto, hoenn, sinnoh, unova } = genOffsets;
+import { api, gens } from '@/utils';
 
 Vue.use(Vuex);
 
@@ -19,46 +18,46 @@ const store = new Vuex.Store({
   actions: {
     async setAllPokemon() {
       await store.dispatch('setGen1');
-      await store.dispatch('setGen2');
-      await store.dispatch('setGen3');
-      await store.dispatch('setGen4');
-      await store.dispatch('setGen5');
+      // await store.dispatch('setGen2');
+      // await store.dispatch('setGen3');
+      // await store.dispatch('setGen4');
+      // await store.dispatch('setGen5');
     },
 
     setGen1({ commit }) {
       return api
-        .get(`/pokemon`, { params: { offset: kanto.offset, limit: kanto.limit } })
+        .get(`/pokemon`, { params: { offset: gens[0].offset, limit: gens[0].limit } })
         .then(response => commit('SET_GEN_1', response.data))
         .catch(error => console.error(`📣: setGen1 -> error`, error));
     },
 
-    setGen2({ commit }) {
-      return api
-        .get(`/pokemon`, { params: { offset: johto.offset, limit: johto.limi } })
-        .then(response => commit('SET_GEN_2', response.data))
-        .catch(error => console.error(`📣: setGen2 -> error`, error));
-    },
+    // setGen2({ commit }) {
+    //   return api
+    //     .get(`/pokemon`, { params: { offset: johto.offset, limit: johto.limi } })
+    //     .then(response => commit('SET_GEN_2', response.data))
+    //     .catch(error => console.error(`📣: setGen2 -> error`, error));
+    // },
 
-    setGen3({ commit }) {
-      return api
-        .get(`/pokemon`, { params: { offset: hoenn.offset, limit: hoenn.limit } })
-        .then(response => commit('SET_GEN_3', response.data))
-        .catch(error => console.error(`📣: setGen3 -> error`, error));
-    },
+    // setGen3({ commit }) {
+    //   return api
+    //     .get(`/pokemon`, { params: { offset: hoenn.offset, limit: hoenn.limit } })
+    //     .then(response => commit('SET_GEN_3', response.data))
+    //     .catch(error => console.error(`📣: setGen3 -> error`, error));
+    // },
 
-    setGen4({ commit }) {
-      return api
-        .get(`/pokemon`, { params: { offset: sinnoh.offset, limit: sinnoh.limi } })
-        .then(response => commit('SET_GEN_4', response.data))
-        .catch(error => console.error(`📣: setGen4 -> error`, error));
-    },
+    // setGen4({ commit }) {
+    //   return api
+    //     .get(`/pokemon`, { params: { offset: sinnoh.offset, limit: sinnoh.limi } })
+    //     .then(response => commit('SET_GEN_4', response.data))
+    //     .catch(error => console.error(`📣: setGen4 -> error`, error));
+    // },
 
-    setGen5({ commit }) {
-      return api
-        .get(`/pokemon`, { params: { offset: unova.offset, limit: unova.limit } })
-        .then(response => commit('SET_GEN_5', response.data))
-        .catch(error => console.error(`📣: setGen5 -> error`, error));
-    },
+    // setGen5({ commit }) {
+    //   return api
+    //     .get(`/pokemon`, { params: { offset: unova.offset, limit: unova.limit } })
+    //     .then(response => commit('SET_GEN_5', response.data))
+    //     .catch(error => console.error(`📣: setGen5 -> error`, error));
+    // },
 
     setSingle({ commit }, id) {
       commit('SET_SINGLE', null);

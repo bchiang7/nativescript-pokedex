@@ -1,85 +1,17 @@
 <template>
   <ScrollView>
     <StackLayout class="container">
-      <Label text="Kanto" class="region" />
+      <Label text="Gen 1: Kanto" class="region" />
       <StackLayout v-if="gen1">
         <FlexboxLayout flexWrap="wrap" class="list">
           <StackLayout
             v-for="(item, index) in gen1"
             :key="index"
-            @tap="showDetails(getPokeNum(index, 'kanto'), item.name)"
+            @tap="showDetails(getPokeNum(index), item.name)"
             class="cell"
           >
             <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'kanto')}`" class="number" />
-              <Label :text="item.name" class="name" />
-            </StackLayout>
-          </StackLayout>
-        </FlexboxLayout>
-      </StackLayout>
-
-      <Label text="Johto" class="region" />
-      <StackLayout v-if="gen2">
-        <FlexboxLayout flexWrap="wrap" class="list">
-          <StackLayout
-            v-for="(item, index) in gen2"
-            :key="index"
-            @tap="showDetails(getPokeNum(index, 'johto'), item.name)"
-            class="cell"
-          >
-            <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'johto')})`" class="number" />
-              <Label :text="item.name" class="name" />
-            </StackLayout>
-          </StackLayout>
-        </FlexboxLayout>
-      </StackLayout>
-
-      <Label text="Hoenn" class="region" />
-      <StackLayout v-if="gen3">
-        <FlexboxLayout flexWrap="wrap" class="list">
-          <StackLayout
-            v-for="(item, index) in gen3"
-            :key="index"
-            @tap="showDetails(getPokeNum(index, 'hoenn'), item.name)"
-            class="cell"
-          >
-            <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'hoenn')}`" class="number" />
-              <Label :text="item.name" class="name" />
-            </StackLayout>
-          </StackLayout>
-        </FlexboxLayout>
-      </StackLayout>
-
-      <Label text="Sinnoh" class="region" />
-      <StackLayout v-if="gen4">
-        <FlexboxLayout flexWrap="wrap" class="list">
-          <StackLayout
-            v-for="(item, index) in gen4"
-            :key="index"
-            @tap="showDetails(getPokeNum(index, 'sinnoh'), item.name)"
-            class="cell"
-          >
-            <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'sinnoh')}`" class="number" />
-              <Label :text="item.name" class="name" />
-            </StackLayout>
-          </StackLayout>
-        </FlexboxLayout>
-      </StackLayout>
-
-      <Label text="Unova" class="region" />
-      <StackLayout v-if="gen5">
-        <FlexboxLayout flexWrap="wrap" class="list">
-          <StackLayout
-            v-for="(item, index) in gen5"
-            :key="index"
-            @tap="showDetails(getPokeNum(index, 'unova'), item.name)"
-            class="cell"
-          >
-            <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'unova')}`" class="number" />
+              <Label :text="`#${getPokeNum(index)}`" class="number" />
               <Label :text="item.name" class="name" />
             </StackLayout>
           </StackLayout>
@@ -91,7 +23,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { genOffsets } from '@/utils';
+import { gens } from '@/utils';
 import Single from '@/components/Single';
 
 export default {
@@ -122,8 +54,8 @@ export default {
       }
     },
 
-    getPokeNum(index, gen) {
-      const { offset } = genOffsets[gen];
+    getPokeNum(index) {
+      const { offset } = gens[0];
       return `${index + 1 + offset}`;
     },
 
@@ -158,8 +90,8 @@ export default {
   justify-content: space-between;
 
   .cell {
-    width: 50%;
-    padding: 5;
+    width: 32%;
+    padding: 3;
 
     &__inner {
       height: 150;
@@ -169,10 +101,10 @@ export default {
 
       .number {
         font-family: $ff-space-mono;
-        font-size: 24;
+        font-size: 20;
       }
       .name {
-        text-transform: capitalize;
+        font-size: 14;
       }
     }
   }
