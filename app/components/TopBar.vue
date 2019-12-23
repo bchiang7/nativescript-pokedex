@@ -3,18 +3,32 @@
     <StackLayout
       dock="top"
       height="120"
-      backgroundColor="#a83131"
+      class="docked"
     >
-      <FlexboxLayout class="lights-container">
-        <StackLayout class="light" height="70">
-          <StackLayout class="light__inner light__inner--bg" height="55">
-            <StackLayout class="light__inner light__inner--depth" height="45">
-              <StackLayout class="light__inner light__inner--surface" height="35">
-                <StackLayout class="light__inner light__inner--reflect" height="15" />
+      <FlexboxLayout class="lights-container" alignItems="flex-start">
+        <StackLayout class="big-light">
+          <StackLayout class="light" height="75">
+            <StackLayout class="light__inner light__inner--bg" height="55">
+              <StackLayout class="light__inner light__inner--depth" height="45">
+                <StackLayout class="light__inner light__inner--surface" height="35">
+                  <StackLayout class="light__inner light__inner--reflect" height="15" />
+                </StackLayout>
               </StackLayout>
             </StackLayout>
           </StackLayout>
         </StackLayout>
+
+        <FlexboxLayout class="three-lights" alignItems="flex-start">
+          <StackLayout class="light red" height="20">
+            <StackLayout class="reflect" height="5" />
+          </StackLayout>
+          <StackLayout class="light yellow" height="20">
+            <StackLayout class="reflect" height="5" />
+          </StackLayout>
+          <StackLayout class="light green" height="20">
+            <StackLayout class="reflect" height="5" />
+          </StackLayout>
+        </FlexboxLayout>
       </FlexboxLayout>
     </StackLayout>
   </DockLayout>
@@ -34,36 +48,74 @@ export default {
 .lights-container {
   padding: 20;
 }
-.light {
-  width: 70;
-  border-radius: 100%;
-  background-color: $off-white;
-  border-width: 3;
-  border-color: $dark-grey;
-  position: relative;
-
-  &__inner {
+.big-light {
+  .light {
+    width: 75;
     border-radius: 100%;
+    background-color: $off-white;
+    border-width: 3;
+    border-color: $dark-grey;
 
-    &--bg {
-      width: 55;
-      background-color: $sky-blue;
-      margin-top: 5;
+    &__inner {
+      border-radius: 100%;
+
+      &--bg {
+        width: 55;
+        background-color: $sky-blue;
+        margin: 7;
+      }
+      &--depth {
+        width: 45;
+        background-color: $dull-blue;
+        margin: 7 0 auto 7;
+      }
+      &--surface {
+        width: 35;
+        background-color: $sky-blue;
+        margin: 2 10 auto auto;
+      }
+      &--reflect {
+        width: 15;
+        background-color: $off-white;
+        margin: 5 15 auto auto;
+      }
     }
-    &--depth {
-      width: 45;
-      background-color: $dull-blue;
-      margin: 7 0 auto 7;
-    }
-    &--surface {
-      width: 35;
-      background-color: $sky-blue;
-      margin: 2 10 auto auto;
-    }
-    &--reflect {
-      width: 15;
+  }
+}
+
+.three-lights {
+  margin-left: 30;
+
+  .light {
+    width: 20;
+    height: 20;
+    border-radius: 100%;
+    background-color: $off-white;
+    border-width: 3;
+    border-color: $dark-grey;
+    margin-right: 10;
+
+    .reflect {
+      width: 5;
+      border-radius: 100%;
       background-color: $off-white;
-      margin: 5 15 auto auto;
+      margin: 2 7 auto auto;
+    }
+
+    &.red {
+      background-color: $red;
+      .reflect {
+      }
+    }
+    &.yellow {
+      background-color: $yellow;
+      .reflect {
+      }
+    }
+    &.green {
+      background-color: $green;
+      .reflect {
+      }
     }
   }
 }
