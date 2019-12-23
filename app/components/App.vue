@@ -3,7 +3,7 @@
     <AbsoluteLayout>
       <TopBar />
 
-      <StackLayout class="frame-container" top="120">
+      <StackLayout class="container" top="120">
         <FlexboxLayout
           class="frame"
           flexDirection="column"
@@ -21,49 +21,7 @@
           <StackLayout class="screen">
             <ScrollView>
               <StackLayout>
-                <Label text="this" />
-                <Label text="text" />
-                <Label text="scrolls" />
-                <Label text="horizontally" />
-                <Label text="if necessary" />
-                <Label text="this" />
-                <Label text="text" />
-                <Label text="scrolls" />
-                <Label text="horizontally" />
-                <Label text="if necessary" />
-                <Label text="this" />
-                <Label text="text" />
-                <Label text="scrolls" />
-                <Label text="horizontally" />
-                <Label text="if necessary" />
-                <Label text="this" />
-                <Label text="text" />
-                <Label text="scrolls" />
-                <Label text="horizontally" />
-                <Label text="if necessary" />
-                <Label text="this" />
-                <Label text="text" />
-                <Label text="scrolls" />
-                <Label text="horizontally" />
-                <Label text="if necessary" />
-                <Label text="if necessary" />
-                <Label text="this" />
-                <Label text="text" />
-                <Label text="scrolls" />
-                <Label text="horizontally" />
-                <Label text="if necessary" />
-                <Label text="if necessary" />
-                <Label text="this" />
-                <Label text="text" />
-                <Label text="scrolls" />
-                <Label text="horizontally" />
-                <Label text="if necessary" />
-                <Label text="if necessary" />
-                <Label text="this" />
-                <Label text="text" />
-                <Label text="scrolls" />
-                <Label text="horizontally" />
-                <Label text="if necessary" />
+                <Menu />
               </StackLayout>
             </ScrollView>
           </StackLayout>
@@ -91,12 +49,14 @@
 
 <script>
 import TopBar from '@/components/TopBar';
+import Menu from '@/components/Menu';
 
 export default {
   name: 'App',
 
   components: {
     TopBar,
+    Menu,
   },
 
   data() {
@@ -106,7 +66,7 @@ export default {
 </script>
 
 <style lang="scss">
-.frame-container {
+.container {
   width: 100%;
   height: 85%;
   padding: 25 15 15;
@@ -116,9 +76,9 @@ export default {
   height: 100%;
   padding: 0 20 40;
   background-color: $off-white;
-  border-radius: 10;
-  border-color: $dark-grey;
-  border-width: 3;
+  border-color: $grey;
+  border-width: 2 2 5 2;
+  border-radius: 15;
 
   .dots {
     margin: 20 0;
@@ -129,7 +89,7 @@ export default {
       border-radius: 100%;
       background-color: $red;
       border-width: 2;
-      border-color: $dark-grey;
+      border-color: $black;
 
       &.left {
         margin-right: 20;
@@ -142,7 +102,7 @@ export default {
 
     .line {
       width: 50;
-      background-color: $dark-grey;
+      background-color: $black;
       margin-bottom: 3;
     }
   }
@@ -151,9 +111,9 @@ export default {
     width: 100%;
     height: 100%;
     background-color: $baby-blue;
-    border-radius: 7;
-    padding: 20;
-    border-color: $dark-grey;
+    border-radius: 10;
+    padding: 30 20;
+    border-color: $black;
     border-width: 2;
   }
 }

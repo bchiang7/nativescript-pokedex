@@ -48,6 +48,7 @@ export default {
   background-color: $red;
   border-color: $dark-red;
   border-width: 0 0 7 0;
+  border-radius: 10;
 }
 .lights-container {
   padding: 20;
@@ -58,24 +59,24 @@ export default {
     border-radius: 100%;
     background-color: $off-white;
     border-width: 3;
-    border-color: $dark-grey;
+    border-color: $black;
 
     &__inner {
       border-radius: 100%;
 
       &--bg {
         width: 55;
-        background-color: $sky-blue;
+        background-color: $blue;
         margin: 7;
       }
       &--depth {
         width: 45;
-        background-color: $dull-blue;
+        background-color: $dark-blue;
         margin: 7 0 auto 7;
       }
       &--surface {
         width: 35;
-        background-color: $sky-blue;
+        background-color: $blue;
         margin: 2 10 auto auto;
       }
       &--reflect {
@@ -96,7 +97,7 @@ export default {
     border-radius: 100%;
     background-color: $off-white;
     border-width: 3;
-    border-color: $dark-grey;
+    border-color: $black;
     margin-right: 10;
 
     .reflect {
