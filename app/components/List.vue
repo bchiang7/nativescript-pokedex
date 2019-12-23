@@ -1,7 +1,8 @@
 <template>
   <ScrollView>
     <StackLayout class="container">
-      <Label text="Gen 1: Kanto" class="region" />
+      <Label text="Generation 1: Kanto" class="region" />
+
       <StackLayout v-if="gen1">
         <FlexboxLayout flexWrap="wrap" class="list">
           <StackLayout
@@ -11,7 +12,7 @@
             class="cell"
           >
             <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index)}`" class="number" />
+              <Label :text="`#${formatNum(index)}`" class="number" />
               <Label :text="item.name" class="name" />
             </StackLayout>
           </StackLayout>
@@ -23,7 +24,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { gens } from '@/utils';
+import { formatNum } from '@/utils';
 import Single from '@/components/Single';
 
 export default {
@@ -34,7 +35,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      formatNum,
+    };
   },
 
   computed: {
@@ -52,11 +55,6 @@ export default {
       } catch (e) {
         console.error(e);
       }
-    },
-
-    getPokeNum(index) {
-      const { offset } = gens[0];
-      return `${index + 1 + offset}`;
     },
 
     showDetails(id, name) {
@@ -104,6 +102,7 @@ export default {
         font-size: 20;
       }
       .name {
+        text-transform: capitalize;
         font-size: 14;
       }
     }

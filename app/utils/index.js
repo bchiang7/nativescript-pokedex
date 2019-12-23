@@ -35,4 +35,10 @@ const gens = [
   },
 ];
 
-export { api, gens };
+const formatNum = index => {
+  const { offset } = gens[0];
+  const num = `${index + 1 + offset}`;
+  return num.padStart(3, '0');
+};
+
+export { api, gens, formatNum };
