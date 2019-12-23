@@ -1,37 +1,35 @@
 <template>
-  <DockLayout stretchLastChild="false">
-    <StackLayout
-      dock="top"
-      height="120"
-      class="docked"
-    >
-      <FlexboxLayout class="lights-container" alignItems="flex-start">
-        <StackLayout class="big-light">
-          <StackLayout class="light" height="75">
-            <StackLayout class="light__inner light__inner--bg" height="55">
-              <StackLayout class="light__inner light__inner--depth" height="45">
-                <StackLayout class="light__inner light__inner--surface" height="35">
-                  <StackLayout class="light__inner light__inner--reflect" height="15" />
-                </StackLayout>
+  <StackLayout
+    top="0"
+    height="120"
+    class="docked"
+  >
+    <FlexboxLayout class="lights-container" alignItems="flex-start">
+      <StackLayout class="big-light">
+        <StackLayout class="light" height="75">
+          <StackLayout class="light__inner light__inner--bg" height="55">
+            <StackLayout class="light__inner light__inner--depth" height="45">
+              <StackLayout class="light__inner light__inner--surface" height="35">
+                <StackLayout class="light__inner light__inner--reflect" height="15" />
               </StackLayout>
             </StackLayout>
           </StackLayout>
         </StackLayout>
+      </StackLayout>
 
-        <FlexboxLayout class="three-lights" alignItems="flex-start">
-          <StackLayout class="light red" height="20">
-            <StackLayout class="reflect" height="5" />
-          </StackLayout>
-          <StackLayout class="light yellow" height="20">
-            <StackLayout class="reflect" height="5" />
-          </StackLayout>
-          <StackLayout class="light green" height="20">
-            <StackLayout class="reflect" height="5" />
-          </StackLayout>
-        </FlexboxLayout>
+      <FlexboxLayout class="three-lights" alignItems="flex-start">
+        <StackLayout class="light red" height="20">
+          <StackLayout class="reflect" height="5" />
+        </StackLayout>
+        <StackLayout class="light yellow" height="20">
+          <StackLayout class="reflect" height="5" />
+        </StackLayout>
+        <StackLayout class="light green" height="20">
+          <StackLayout class="reflect" height="5" />
+        </StackLayout>
       </FlexboxLayout>
-    </StackLayout>
-  </DockLayout>
+    </FlexboxLayout>
+  </StackLayout>
 </template>
 
 <script>
@@ -46,6 +44,8 @@ export default {
 
 <style lang="scss">
 .docked {
+  width: 100%;
+  background-color: $red;
   border-color: $dark-red;
   border-width: 0 0 7 0;
 }
