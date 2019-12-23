@@ -45,6 +45,10 @@ export default {
 </script>
 
 <style lang="scss">
+.docked {
+  border-color: $dark-red;
+  border-width: 0 0 7 0;
+}
 .lights-container {
   padding: 20;
 }
@@ -84,7 +88,7 @@ export default {
 }
 
 .three-lights {
-  margin-left: 30;
+  margin-left: 20;
 
   .light {
     width: 20;
@@ -104,18 +108,12 @@ export default {
 
     &.red {
       background-color: $red;
-      .reflect {
-      }
     }
     &.yellow {
       background-color: $yellow;
-      .reflect {
-      }
     }
     &.green {
       background-color: $green;
-      .reflect {
-      }
     }
   }
 }
