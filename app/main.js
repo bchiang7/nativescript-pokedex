@@ -13,7 +13,7 @@ Vue.config.silent = TNS_ENV === 'production';
 
 Vue.prototype.$store = store;
 
-console.warn('📣: main.js', 'init');
+console.warn('📣: main.js', '');
 
 new Vue({
   store,

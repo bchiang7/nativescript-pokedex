@@ -1,18 +1,20 @@
 <template>
   <Page>
-    <ActionBar title="Pokédex" />
-    <List />
+    <!-- <ActionBar title="Pokédex" /> -->
+    <TopBar />
+
+    <!-- <List /> -->
   </Page>
 </template>
 
 <script>
-import List from '@/components/List';
+import TopBar from '@/components/TopBar';
 
 export default {
   name: 'App',
 
   components: {
-    List,
+    TopBar,
   },
 
   data() {
