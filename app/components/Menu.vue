@@ -29,7 +29,7 @@
     </StackLayout>
 
     <StackLayout v-if="showList">
-      <List />
+      <List :gen="listGen" />
     </StackLayout>
   </StackLayout>
 </template>
@@ -47,12 +47,13 @@ export default {
   data() {
     return {
       showList: false,
+      listGen: null,
     };
   },
 
   methods: {
     onButtonTap(gen) {
-      console.warn('📣: onButtonTap -> gen', gen);
+      this.listGen = gen;
       this.showList = true;
     },
   },

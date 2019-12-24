@@ -35,8 +35,8 @@ const gens = [
   },
 ];
 
-const formatNum = index => {
-  const { offset } = gens[0];
+const formatNum = (index, gen) => {
+  const { offset } = gens[gen];
   const num = `${index + 1 + offset}`;
   return num.padStart(3, '0');
 };

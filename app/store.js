@@ -13,17 +13,10 @@ const store = new Vuex.Store({
     gen5: null,
     single: null,
     singleSpecies: null,
+    singleEvolution: null,
   },
 
   actions: {
-    async setAllPokemon() {
-      await store.dispatch('setGen1');
-      // await store.dispatch('setGen2');
-      // await store.dispatch('setGen3');
-      // await store.dispatch('setGen4');
-      // await store.dispatch('setGen5');
-    },
-
     setGen1({ commit }) {
       return api
         .get(`/pokemon`, { params: { offset: gens[0].offset, limit: gens[0].limit } })
@@ -31,33 +24,33 @@ const store = new Vuex.Store({
         .catch(error => console.error(`📣: setGen1 -> error`, error));
     },
 
-    // setGen2({ commit }) {
-    //   return api
-    //     .get(`/pokemon`, { params: { offset: johto.offset, limit: johto.limi } })
-    //     .then(response => commit('SET_GEN_2', response.data))
-    //     .catch(error => console.error(`📣: setGen2 -> error`, error));
-    // },
+    setGen2({ commit }) {
+      return api
+        .get(`/pokemon`, { params: { offset: gens[1].offset, limit: gens[1].limit } })
+        .then(response => commit('SET_GEN_2', response.data))
+        .catch(error => console.error(`📣: setGen2 -> error`, error));
+    },
 
-    // setGen3({ commit }) {
-    //   return api
-    //     .get(`/pokemon`, { params: { offset: hoenn.offset, limit: hoenn.limit } })
-    //     .then(response => commit('SET_GEN_3', response.data))
-    //     .catch(error => console.error(`📣: setGen3 -> error`, error));
-    // },
+    setGen3({ commit }) {
+      return api
+        .get(`/pokemon`, { params: { offset: gens[2].offset, limit: gens[2].limit } })
+        .then(response => commit('SET_GEN_3', response.data))
+        .catch(error => console.error(`📣: setGen3 -> error`, error));
+    },
 
-    // setGen4({ commit }) {
-    //   return api
-    //     .get(`/pokemon`, { params: { offset: sinnoh.offset, limit: sinnoh.limi } })
-    //     .then(response => commit('SET_GEN_4', response.data))
-    //     .catch(error => console.error(`📣: setGen4 -> error`, error));
-    // },
+    setGen4({ commit }) {
+      return api
+        .get(`/pokemon`, { params: { offset: gens[3].offset, limit: gens[3].limit } })
+        .then(response => commit('SET_GEN_4', response.data))
+        .catch(error => console.error(`📣: setGen4 -> error`, error));
+    },
 
-    // setGen5({ commit }) {
-    //   return api
-    //     .get(`/pokemon`, { params: { offset: unova.offset, limit: unova.limit } })
-    //     .then(response => commit('SET_GEN_5', response.data))
-    //     .catch(error => console.error(`📣: setGen5 -> error`, error));
-    // },
+    setGen5({ commit }) {
+      return api
+        .get(`/pokemon`, { params: { offset: gens[4].offset, limit: gens[4].limit } })
+        .then(response => commit('SET_GEN_5', response.data))
+        .catch(error => console.error(`📣: setGen5 -> error`, error));
+    },
 
     setSingle({ commit }, id) {
       commit('SET_SINGLE', null);
@@ -73,6 +66,14 @@ const store = new Vuex.Store({
         .get(`/pokemon-species/${id}`)
         .then(response => commit('SET_SINGLE_SPECIES', response.data))
         .catch(error => console.error(`📣: setSingleSpecies -> error`, error));
+    },
+
+    setSingleEvolution({ commit }, id) {
+      commit('SET_SINGLE_EVOLUTION', null);
+      return api
+        .get(`/evolution-chain/${id}`)
+        .then(response => commit('SET_SINGLE_EVOLUTION', response.data))
+        .catch(error => console.error(`📣: setSingleEvolution -> error`, error));
     },
   },
 
@@ -97,6 +98,9 @@ const store = new Vuex.Store({
     },
     SET_SINGLE_SPECIES: (state, payload) => {
       state.singleSpecies = payload;
+    },
+    SET_SINGLE_EVOLUTION: (state, payload) => {
+      state.singleEvolution = payload;
     },
   },
 });

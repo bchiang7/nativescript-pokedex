@@ -1,18 +1,22 @@
 <template>
   <StackLayout class="container">
-    <StackLayout v-if="!showSingle && gen1">
-      <Label text="Generation 1" class="region" />
+    <StackLayout v-if="!showSingle">
+      <Label :text="`Generation ${gen}`" class="region" />
 
-      <FlexboxLayout flexWrap="wrap" class="list">
+      <FlexboxLayout
+        v-if="pokemon && pokemon.length > 0"
+        flexWrap="wrap"
+        class="list"
+      >
         <StackLayout
-          v-for="(item, index) in gen1"
+          v-for="(item, index) in pokemon"
           :key="index"
           @tap="showDetails(index, item.name)"
           class="cell"
         >
           <StackLayout class="cell__inner">
             <Image :src="getSprite(index)" class="sprite" />
-            <Label :text="`#${formatNum(index)}`" class="number" />
+            <Label :text="`#${formatNum(index, gen)}`" class="number" />
             <Label :text="item.name" class="name" />
           </StackLayout>
         </StackLayout>
@@ -20,7 +24,11 @@
     </StackLayout>
 
     <StackLayout v-if="showSingle">
-      <Single :id="singleId" :name="singleName" />
+      <Single
+        :index="singleIndex"
+        :name="singleName"
+        :gen="gen"
+      />
     </StackLayout>
   </StackLayout>
 </template>
@@ -48,8 +56,9 @@ export default {
     return {
       formatNum,
       showSingle: false,
-      singleId: null,
+      singleIndex: null,
       singleName: null,
+      pokemon: null,
     };
   },
 
@@ -64,19 +73,32 @@ export default {
   methods: {
     async getPokemon() {
       try {
-        await this.$store.dispatch('setAllPokemon');
+        await this.$store.dispatch(`setGen${this.gen}`);
+
+        this.pokemon =
+          this.gen === 1
+            ? this.gen1
+            : this.gen === 2
+              ? this.gen2
+              : this.gen === 3
+                ? this.gen3
+                : this.gen === 4
+                  ? this.gen4
+                  : this.gen === 5
+                    ? this.gen5
+                    : this.gen1;
       } catch (e) {
         console.error(e);
       }
     },
 
     getSprite(index) {
-      const num = this.formatNum(index);
+      const num = this.formatNum(index, this.gen);
       return `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${num}.png`;
     },
 
     showDetails(index, name) {
-      this.singleId = index;
+      this.singleIndex = index;
       this.singleName = name;
       this.showSingle = true;
     },
