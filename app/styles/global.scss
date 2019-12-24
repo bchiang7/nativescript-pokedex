@@ -4,7 +4,7 @@ Page {
 }
 
 ActionBar {
-  background-color: $red;
+  background-color: $dark-red;
   color: $white;
 }
 
@@ -40,4 +40,8 @@ ActionBar {
     border-color: $dark-yellow;
     color: $black;
   }
+}
+
+.container {
+  padding: 10;
 }

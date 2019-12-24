@@ -1,43 +1,57 @@
 <template>
-  <Page>
-    <ActionBar :title="name || single.name" />
-    <ScrollView>
-      <StackLayout v-if="single">
-        <Label :text="`#${id}`" />
-        <Label :text="name || single.name" />
-        <Image :src="single.sprites.front_default" width="100%" />
-        <Label :text="`Weight: ${single.weight}kg`" />
-        <Label text="Types: " />
-        <Label
-          v-for="type in single.types"
-          :key="type.slot"
-          :text="type.type.name"
-        />
-        <Label
-          v-if="singleSpecies"
-          :text="description"
-          textWrap="true"
-        />
-      </StackLayout>
-    </ScrollView>
-  </Page>
+  <StackLayout v-if="single" class="container">
+    <FlexboxLayout justifyContent="space-between">
+      <Label :text="name || single.name" class="name" />
+      <Label :text="`#${formatNum(id)}`" class="number" />
+    </FlexboxLayout>
+
+    <Image :src="single.sprites.front_default" width="100%" />
+
+    <FlexboxLayout class="types" justifyContent="center">
+      <Label
+        v-for="type in single.types"
+        :key="type.slot"
+        :text="type.type.name"
+        textWrap="true"
+        class="type"
+      />
+    </FlexboxLayout>
+
+    <StackLayout class="stats">
+      <Label :text="`Weight: ${single.weight}kg`" />
+
+      <Label
+        v-if="singleSpecies"
+        :text="description"
+        textWrap="true"
+        class="description"
+      />
+    </StackLayout>
+  </StackLayout>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import { formatNum } from '@/utils';
 
 export default {
   name: 'List',
 
   props: {
     id: {
-      type: String,
-      default: '',
+      type: Number,
+      default: null,
     },
     name: {
       type: String,
       default: '',
     },
+  },
+
+  data() {
+    return {
+      formatNum,
+    };
   },
 
   computed: {
@@ -49,11 +63,11 @@ export default {
   },
 
   created() {
-    this.getPokemon();
+    this.getData();
   },
 
   methods: {
-    async getPokemon() {
+    async getData() {
       try {
         await this.$store.dispatch('setSingle', this.id);
         await this.$store.dispatch('setSingleSpecies', this.id);
@@ -66,7 +80,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-StackLayout {
-  padding: 30;
+.name {
+  text-transform: uppercase;
+}
+.types {
+  margin: 0 0 20;
+  .type {
+    margin-right: 5;
+    font-family: $ff-nunito;
+    text-transform: capitalize;
+    background-color: $blue;
+    border-radius: 3;
+    padding: 2 7;
+    font-size: 14;
+    color: $white;
+  }
+}
+.stats {
+  font-family: $ff-nunito;
+
+  .description {
+    font-size: 14;
+    margin-top: 20;
+  }
 }
 </style>

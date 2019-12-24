@@ -1,25 +1,28 @@
 <template>
-  <ScrollView>
-    <StackLayout class="container">
-      <Label text="Generation 1: Kanto" class="region" />
+  <StackLayout class="container">
+    <StackLayout v-if="!showSingle && gen1">
+      <Label text="Generation 1" class="region" />
 
-      <StackLayout v-if="gen1">
-        <FlexboxLayout flexWrap="wrap" class="list">
-          <StackLayout
-            v-for="(item, index) in gen1"
-            :key="index"
-            @tap="showDetails(getPokeNum(index), item.name)"
-            class="cell"
-          >
-            <StackLayout class="cell__inner">
-              <Label :text="`#${formatNum(index)}`" class="number" />
-              <Label :text="item.name" class="name" />
-            </StackLayout>
+      <FlexboxLayout flexWrap="wrap" class="list">
+        <StackLayout
+          v-for="(item, index) in gen1"
+          :key="index"
+          @tap="showDetails(index, item.name)"
+          class="cell"
+        >
+          <StackLayout class="cell__inner">
+            <Image :src="getSprite(index)" class="sprite" />
+            <Label :text="`#${formatNum(index)}`" class="number" />
+            <Label :text="item.name" class="name" />
           </StackLayout>
-        </FlexboxLayout>
-      </StackLayout>
+        </StackLayout>
+      </FlexboxLayout>
     </StackLayout>
-  </ScrollView>
+
+    <StackLayout v-if="showSingle">
+      <Single :id="singleId" :name="singleName" />
+    </StackLayout>
+  </StackLayout>
 </template>
 
 <script>
@@ -30,13 +33,23 @@ import Single from '@/components/Single';
 export default {
   name: 'List',
 
-  component: {
+  components: {
     Single,
+  },
+
+  props: {
+    gen: {
+      type: Number,
+      default: null,
+    },
   },
 
   data() {
     return {
       formatNum,
+      showSingle: false,
+      singleId: null,
+      singleName: null,
     };
   },
 
@@ -57,30 +70,23 @@ export default {
       }
     },
 
-    showDetails(id, name) {
-      this.$navigateTo(Single, {
-        props: { id, name },
-        animated: true,
-        transition: {
-          name: 'slide',
-          duration: 250,
-          curve: 'ease',
-        },
-      });
+    getSprite(index) {
+      const num = this.formatNum(index);
+      return `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${num}.png`;
+    },
+
+    showDetails(index, name) {
+      this.singleId = index;
+      this.singleName = name;
+      this.showSingle = true;
     },
   },
 };
 </script>
 
-<style lang="scss">
-.container {
-  padding: 20;
-}
-
+<style lang="scss" scoped>
 .region {
-  font-family: $ff-space-mono;
-  font-size: 24;
-  font-weight: 700;
+  margin: 20 0;
 }
 
 .list {
@@ -88,20 +94,22 @@ export default {
   justify-content: space-between;
 
   .cell {
-    width: 32%;
-    padding: 3;
+    width: 33%;
 
     &__inner {
-      height: 150;
-      background-color: #eee;
-      border-radius: 10;
-      padding: 20;
+      padding: 10;
+      text-align: center;
 
+      .sprite {
+        width: 80%;
+        max-width: 50;
+      }
       .number {
-        font-family: $ff-space-mono;
-        font-size: 20;
+        font-size: 14;
+        margin: 5 0;
       }
       .name {
+        font-family: $ff-nunito;
         text-transform: capitalize;
         font-size: 14;
       }

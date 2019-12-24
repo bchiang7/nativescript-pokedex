@@ -3,7 +3,7 @@
     <AbsoluteLayout>
       <TopBar />
 
-      <StackLayout class="container" top="120">
+      <StackLayout class="main" top="120">
         <FlexboxLayout
           class="frame"
           flexDirection="column"
@@ -41,8 +41,6 @@
           </StackLayout>
         </FlexboxLayout>
       </StackLayout>
-
-      <!-- <List /> -->
     </AbsoluteLayout>
   </Page>
 </template>
@@ -65,8 +63,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.container {
+<style lang="scss" scoped>
+.main {
   width: 100%;
   height: 85%;
   padding: 25 15 15;
@@ -112,7 +110,6 @@ export default {
     height: 100%;
     background-color: $baby-blue;
     border-radius: 10;
-    padding: 30 20;
     border-color: $black;
     border-width: 2;
   }
