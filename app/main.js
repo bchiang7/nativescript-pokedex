@@ -10,10 +10,11 @@ if (TNS_ENV !== 'production') {
 
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = TNS_ENV === 'production';
+Vue.config.silent = true;
 
 Vue.prototype.$store = store;
 
-console.warn('📣: main.js', 's');
+console.warn('📣: main.js', 'sdas');
 
 new Vue({
   store,
