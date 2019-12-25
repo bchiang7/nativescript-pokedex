@@ -9,7 +9,10 @@
 
           <StackLayout class="screen">
             <ScrollView>
-              <Menu />
+              <StackLayout>
+                <Menu v-if="view === 'menu'" />
+                <List v-if="view === 'list'" :gen="1" />
+              </StackLayout>
             </ScrollView>
           </StackLayout>
 
@@ -21,10 +24,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import TopBar from '@/components/TopBar';
-import Menu from '@/components/Menu';
 import FrameTop from '@/components/FrameTop';
 import FrameBottom from '@/components/FrameBottom';
+import Menu from '@/components/Menu';
+import List from '@/components/List';
 
 export default {
   name: 'App',
@@ -34,10 +40,19 @@ export default {
     FrameTop,
     FrameBottom,
     Menu,
+    List,
   },
 
   data() {
     return {};
+  },
+
+  computed: {
+    ...mapState(['view']),
+  },
+
+  created() {
+    this.$store.dispatch('setView', 'menu');
   },
 };
 </script>

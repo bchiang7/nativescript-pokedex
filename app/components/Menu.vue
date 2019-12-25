@@ -1,6 +1,6 @@
 <template>
   <StackLayout class="container">
-    <StackLayout v-if="!showList" class="buttons">
+    <StackLayout class="buttons">
       <Button
         @tap="onButtonTap(1)"
         text="Generation 1"
@@ -27,22 +27,12 @@
         class="button green"
       />
     </StackLayout>
-
-    <StackLayout v-if="showList">
-      <List :gen="listGen" />
-    </StackLayout>
   </StackLayout>
 </template>
 
 <script>
-import List from '@/components/List';
-
 export default {
   name: 'Menu',
-
-  components: {
-    List,
-  },
 
   data() {
     return {
@@ -53,8 +43,8 @@ export default {
 
   methods: {
     onButtonTap(gen) {
-      this.listGen = gen;
-      this.showList = true;
+      console.warn('SET_LIST_GEN', gen);
+      this.$store.dispatch('setView', 'list');
     },
   },
 };

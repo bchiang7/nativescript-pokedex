@@ -31,12 +31,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'FrameBottom',
 
+  computed: {
+    ...mapState(['lastView']),
+  },
+
   methods: {
     back() {
-      console.warn('back!!');
+      this.$store.dispatch('setView', this.lastView);
     },
   },
 };

@@ -36,7 +36,7 @@ const gens = [
 ];
 
 const formatNum = (index, gen) => {
-  const { offset } = gens[gen];
+  const { offset } = gens[gen - 1];
   const num = `${index + 1 + offset}`;
   return num.padStart(3, '0');
 };

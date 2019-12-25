@@ -6,6 +6,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    view: '',
+    lastView: '',
     gen1: null,
     gen2: null,
     gen3: null,
@@ -17,6 +19,11 @@ const store = new Vuex.Store({
   },
 
   actions: {
+    setView({ commit }, view) {
+      commit('SET_LAST_VIEW', store.state.view);
+      commit('SET_VIEW', view);
+    },
+
     setGen1({ commit }) {
       return api
         .get(`/pokemon`, { params: { offset: gens[0].offset, limit: gens[0].limit } })
@@ -78,6 +85,12 @@ const store = new Vuex.Store({
   },
 
   mutations: {
+    SET_VIEW: (state, payload) => {
+      state.view = payload;
+    },
+    SET_LAST_VIEW: (state, payload) => {
+      state.lastView = payload;
+    },
     SET_GEN_1: (state, payload) => {
       state.gen1 = payload.results;
     },
