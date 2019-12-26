@@ -10,8 +10,14 @@
           <StackLayout class="screen">
             <ScrollView>
               <StackLayout>
-                <Menu v-if="view === 'menu'" />
-                <List v-if="view === 'list'" :gen="1" />
+                <Menu v-if="view.component === 'menu'" />
+                <List v-if="view.component === 'list'" :gen="view.gen" />
+                <Single
+                  v-if="view.component === 'single'"
+                  :index="view.index"
+                  :name="view.name"
+                  :gen="view.gen"
+                />
               </StackLayout>
             </ScrollView>
           </StackLayout>
@@ -31,6 +37,7 @@ import FrameTop from '@/components/FrameTop';
 import FrameBottom from '@/components/FrameBottom';
 import Menu from '@/components/Menu';
 import List from '@/components/List';
+import Single from '@/components/Single';
 
 export default {
   name: 'App',
@@ -41,6 +48,7 @@ export default {
     FrameBottom,
     Menu,
     List,
+    Single,
   },
 
   data() {
@@ -52,7 +60,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('setView', 'menu');
+    this.$store.dispatch('setView', { component: 'menu' });
   },
 };
 </script>

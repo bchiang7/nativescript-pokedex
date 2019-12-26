@@ -1,5 +1,11 @@
 <template>
   <StackLayout class="container">
+    <Label
+      text="Select a generation"
+      textWrap="true"
+      class="label"
+    />
+
     <StackLayout class="buttons">
       <Button
         @tap="onButtonTap(1)"
@@ -43,15 +49,20 @@ export default {
 
   methods: {
     onButtonTap(gen) {
-      console.warn('SET_LIST_GEN', gen);
-      this.$store.dispatch('setView', 'list');
+      this.$store.dispatch('setView', {
+        component: 'list',
+        gen,
+      });
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.buttons {
-  padding: 20;
+.label {
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 10;
+  margin: 20 auto;
 }
 </style>

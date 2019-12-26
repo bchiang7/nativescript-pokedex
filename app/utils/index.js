@@ -1,4 +1,7 @@
+import Vue from 'nativescript-vue';
 import axios from 'axios';
+
+const EventBus = new Vue();
 
 const api = axios.create({ baseURL: `https://pokeapi.co/api/v2` });
 
@@ -41,4 +44,4 @@ const formatNum = (index, gen) => {
   return num.padStart(3, '0');
 };
 
-export { api, gens, formatNum };
+export { EventBus, api, gens, formatNum };

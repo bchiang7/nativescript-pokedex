@@ -1,49 +1,34 @@
 <template>
   <StackLayout class="container">
-    <StackLayout v-if="!showSingle">
-      <Label :text="`Generation ${gen}`" class="region" />
+    <Label :text="`Generation ${gen}`" class="region" />
 
-      <FlexboxLayout
-        v-if="pokemon && pokemon.length > 0"
-        flexWrap="wrap"
-        class="list"
+    <FlexboxLayout
+      v-if="pokemon && pokemon.length > 0"
+      flexWrap="wrap"
+      class="list"
+    >
+      <StackLayout
+        v-for="(item, index) in pokemon"
+        :key="index"
+        @tap="showSingle(index, item.name)"
+        class="cell"
       >
-        <StackLayout
-          v-for="(item, index) in pokemon"
-          :key="index"
-          @tap="showDetails(index, item.name)"
-          class="cell"
-        >
-          <StackLayout class="cell__inner">
-            <Image :src="getSprite(index)" class="sprite" />
-            <Label :text="`#${formatNum(index, gen)}`" class="number" />
-            <Label :text="item.name" class="name" />
-          </StackLayout>
+        <StackLayout class="cell__inner">
+          <Image :src="getSprite(index)" class="sprite" />
+          <Label :text="`#${formatNum(index, gen)}`" class="number" />
+          <Label :text="item.name" class="name" />
         </StackLayout>
-      </FlexboxLayout>
-    </StackLayout>
-
-    <StackLayout v-if="showSingle">
-      <Single
-        :index="singleIndex"
-        :name="singleName"
-        :gen="gen"
-      />
-    </StackLayout>
+      </StackLayout>
+    </FlexboxLayout>
   </StackLayout>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import { formatNum } from '@/utils';
-import Single from '@/components/Single';
 
 export default {
   name: 'List',
-
-  components: {
-    Single,
-  },
 
   props: {
     gen: {
@@ -55,9 +40,6 @@ export default {
   data() {
     return {
       formatNum,
-      showSingle: false,
-      singleIndex: null,
-      singleName: null,
       pokemon: null,
     };
   },
@@ -97,10 +79,13 @@ export default {
       return `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${num}.png`;
     },
 
-    showDetails(index, name) {
-      this.singleIndex = index;
-      this.singleName = name;
-      this.showSingle = true;
+    showSingle(index, name) {
+      this.$store.dispatch('setView', {
+        component: 'single',
+        index,
+        name,
+        gen: this.gen,
+      });
     },
   },
 };

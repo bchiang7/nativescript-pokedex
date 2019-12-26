@@ -1,6 +1,6 @@
 <template>
   <StackLayout v-if="single" class="container">
-    <FlexboxLayout justifyContent="space-between">
+    <FlexboxLayout justifyContent="space-between" class="header">
       <Label :text="name || single.name" class="name" />
       <Label :text="`#${formatNum(index, gen)}`" class="number" />
     </FlexboxLayout>
@@ -32,7 +32,7 @@
           <Label
             v-for="(evolution, i) in singleEvolution.chain.evolves_to[0].evolves_to"
             :key="i"
-            :text="`${evolution.species.name}, `"
+            :text="evolution.species.name"
             textWrap="true"
             class="evolution"
           />
@@ -69,10 +69,10 @@
 
 <script>
 import { mapState } from 'vuex';
-import { formatNum } from '@/utils';
+import { formatNum, gens } from '@/utils';
 
 export default {
-  name: 'List',
+  name: 'Single',
 
   props: {
     index: {
@@ -110,7 +110,9 @@ export default {
   methods: {
     async getData() {
       try {
-        const id = this.index + 1;
+        const { offset } = gens[this.gen - 1];
+        const id = this.index + 1 + offset;
+
         await this.$store.dispatch('setSingle', id);
         await this.$store.dispatch('setSingleSpecies', id);
         await this.$store.dispatch('setSingleEvolution', id);
@@ -126,8 +128,9 @@ export default {
 .details {
   font-family: $ff-nunito;
 }
-.name {
+.header {
   text-transform: uppercase;
+  margin: 10 0 0;
 }
 .types {
   margin: 0 0 20;
