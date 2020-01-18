@@ -12,7 +12,8 @@
     />
 
     <StackLayout class="details">
-      <FlexboxLayout class="types" justifyContent="center">
+      <FlexboxLayout class="types">
+        <Label text="Type" fontWeight="bold" />
         <Label
           v-for="type in single.types"
           :key="type.slot"
@@ -23,7 +24,7 @@
       </FlexboxLayout>
 
       <StackLayout v-if="singleEvolution" class="evolution-chain">
-        <Label text="Evolution" />
+        <Label text="Evolution" fontWeight="bold" />
 
         <FlexboxLayout v-if="singleEvolution.chain.evolves_to.length > 0">
           <Label :text="singleEvolution.chain.species.name" />
@@ -40,20 +41,34 @@
       </StackLayout>
 
       <StackLayout class="stats">
-        <FlexboxLayout>
-          <Label :text="`Height: ${single.height / 10}m`" />
-          <Label :text="`Weight: ${single.weight}kg`" />
+        <FlexboxLayout class="height-weight">
+          <Label textWrap="true">
+            <FormattedString>
+              <Span text="Height: " fontWeight="bold" />
+              <Span :text="`${single.height / 10}m`" />
+            </FormattedString>
+          </Label>
+          <Label textWrap="true">
+            <FormattedString>
+              <Span text="Weight: " fontWeight="bold" />
+              <Span :text="`${single.weight}kg`" />
+            </FormattedString>
+          </Label>
         </FlexboxLayout>
 
         <FlexboxLayout class="abilities">
-          <Label text="Abilities: " />
-          <Label
-            v-for="ability in single.abilities"
-            :key="ability.slot"
-            :text="`${ability.ability.name}, `"
-            textWrap="true"
-            class="ability"
-          />
+          <StackLayout>
+            <Label text="Abilities: " fontWeight="bold" />
+          </StackLayout>
+          <StackLayout class="list">
+            <Label
+              v-for="ability in single.abilities"
+              :key="ability.slot"
+              :text="ability.ability.name"
+              textWrap="true"
+              class="ability"
+            />
+          </StackLayout>
         </FlexboxLayout>
 
         <Label
@@ -129,8 +144,10 @@ export default {
   font-family: $ff-nunito;
 }
 .header {
-  text-transform: uppercase;
   margin: 10 0 0;
+  .name {
+    text-transform: capitalize;
+  }
 }
 .types {
   margin: 0 0 20;
@@ -146,11 +163,30 @@ export default {
 }
 .evolution-chain {
   margin-bottom: 20;
+  .evolution {
+    text-transform: capitalize;
+  }
 }
 .stats {
+  .height-weight {
+    justify-content: space-between;
+    margin: 0 0 10 0;
+    label {
+      width: 50%;
+    }
+  }
+  .abilities {
+    .list {
+      flex-grow: 1;
+      label {
+        width: 100%;
+        text-transform: capitalize;
+      }
+    }
+  }
   .description {
     font-size: 14;
-    margin-top: 20;
+    margin: 20 0;
   }
 }
 </style>
