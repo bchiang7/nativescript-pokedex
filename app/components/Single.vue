@@ -5,23 +5,31 @@
       <Label :text="`#${formatNum(index, gen)}`" class="number" />
     </FlexboxLayout>
 
-    <Image
-      :src="single.sprites.front_default"
-      width="100%"
-      class="img"
-    />
+    <StackLayout class="image">
+      <Image
+        :src="
+          `https://pokeres.bastionbot.org/images/pokemon/${id}.png` || single.sprites.front_default
+        "
+        width="100%"
+        class="img"
+      />
+    </StackLayout>
 
     <StackLayout class="details">
-      <FlexboxLayout class="types">
+      <StackLayout class="types">
         <Label text="Type" fontWeight="bold" />
-        <Label
-          v-for="type in single.types"
-          :key="type.slot"
-          :text="type.type.name"
-          textWrap="true"
-          class="type"
-        />
-      </FlexboxLayout>
+
+        <FlexboxLayout class="type-list">
+          <Label
+            v-for="type in single.types"
+            :key="type.slot"
+            :text="type.type.name"
+            :style="{ backgroundColor: typeColors[type.type.name] }"
+            textWrap="true"
+            class="type"
+          />
+        </FlexboxLayout>
+      </StackLayout>
 
       <StackLayout v-if="singleEvolution" class="evolution-chain">
         <Label text="Evolution" fontWeight="bold" />
@@ -84,7 +92,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { formatNum, gens } from '@/utils';
+import { formatNum, gens, typeColors } from '@/utils';
 
 export default {
   name: 'Single',
@@ -107,6 +115,8 @@ export default {
   data() {
     return {
       formatNum,
+      typeColors,
+      id: null,
     };
   },
 
@@ -119,18 +129,17 @@ export default {
   },
 
   created() {
+    const { offset } = gens[this.gen - 1];
+    this.id = this.index + 1 + offset;
     this.getData();
   },
 
   methods: {
     async getData() {
       try {
-        const { offset } = gens[this.gen - 1];
-        const id = this.index + 1 + offset;
-
-        await this.$store.dispatch('setSingle', id);
-        await this.$store.dispatch('setSingleSpecies', id);
-        await this.$store.dispatch('setSingleEvolution', id);
+        await this.$store.dispatch('setSingle', this.id);
+        await this.$store.dispatch('setSingleSpecies', this.id);
+        await this.$store.dispatch('setSingleEvolution', this.id);
       } catch (e) {
         console.error(e);
       }
@@ -149,8 +158,19 @@ export default {
     text-transform: capitalize;
   }
 }
+.image {
+  padding: 50;
+
+  .img {
+    width: 50%;
+    margin: 0 auto;
+  }
+}
 .types {
   margin: 0 0 20;
+  .type-list {
+    margin: 10 0 0;
+  }
   .type {
     margin-right: 5;
     text-transform: capitalize;

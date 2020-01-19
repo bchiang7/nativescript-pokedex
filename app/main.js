@@ -14,7 +14,7 @@ Vue.config.silent = TNS_ENV === 'production';
 
 Vue.prototype.$store = store;
 
-console.warn('📣: main.js', 'asds');
+console.warn('📣: main.js', 'asddf');
 
 new Vue({
   store,
