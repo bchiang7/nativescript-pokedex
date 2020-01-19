@@ -1,9 +1,47 @@
 Page {
-  font-family: $ff-nunito;
+  font-family: $ff-press-start;
+  background-color: $red;
 }
 
 ActionBar {
-  background-color: $red;
+  background-color: $dark-red;
   color: $white;
-  font-family: $ff-space-mono;
+}
+
+.button {
+  background-color: $green;
+  color: $white;
+  border-radius: 7;
+  border-color: $dark-green;
+  border-width: 0 0 5 0;
+  font-family: $ff-press-start;
+  font-size: 14;
+  text-transform: uppercase;
+  padding: 25 10 20;
+  margin-bottom: 20;
+
+  &.green {
+    background-color: $green;
+    border-color: $dark-green;
+  }
+
+  &.blue {
+    background-color: $blue;
+    border-color: $dark-blue;
+  }
+
+  &.red {
+    background-color: $red;
+    border-color: $dark-red;
+  }
+
+  &.yellow {
+    background-color: $yellow;
+    border-color: $dark-yellow;
+    color: $black;
+  }
+}
+
+.container {
+  padding: 15;
 }

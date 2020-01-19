@@ -1,108 +1,47 @@
 <template>
-  <ScrollView>
-    <StackLayout class="container">
-      <Label text="Kanto" class="region" />
-      <StackLayout v-if="gen1">
-        <FlexboxLayout flexWrap="wrap" class="list">
-          <StackLayout
-            v-for="(item, index) in gen1"
-            :key="index"
-            @tap="showDetails(getPokeNum(index, 'kanto'), item.name)"
-            class="cell"
-          >
-            <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'kanto')}`" class="number" />
-              <Label :text="item.name" class="name" />
-            </StackLayout>
-          </StackLayout>
-        </FlexboxLayout>
-      </StackLayout>
+  <StackLayout class="container">
+    <Label :text="`Generation ${gen}`" class="region" />
 
-      <Label text="Johto" class="region" />
-      <StackLayout v-if="gen2">
-        <FlexboxLayout flexWrap="wrap" class="list">
-          <StackLayout
-            v-for="(item, index) in gen2"
-            :key="index"
-            @tap="showDetails(getPokeNum(index, 'johto'), item.name)"
-            class="cell"
-          >
-            <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'johto')})`" class="number" />
-              <Label :text="item.name" class="name" />
-            </StackLayout>
-          </StackLayout>
-        </FlexboxLayout>
+    <FlexboxLayout
+      v-if="pokemon && pokemon.length > 0"
+      flexWrap="wrap"
+      class="list"
+    >
+      <StackLayout
+        v-for="(item, index) in pokemon"
+        :key="index"
+        @tap="showSingle(index, item.name)"
+        class="cell"
+      >
+        <StackLayout class="cell__inner">
+          <Image :src="getSprite(index)" class="sprite" />
+          <Label :text="`#${formatNum(index, gen)}`" class="number" />
+          <Label :text="item.name" class="name" />
+        </StackLayout>
       </StackLayout>
-
-      <Label text="Hoenn" class="region" />
-      <StackLayout v-if="gen3">
-        <FlexboxLayout flexWrap="wrap" class="list">
-          <StackLayout
-            v-for="(item, index) in gen3"
-            :key="index"
-            @tap="showDetails(getPokeNum(index, 'hoenn'), item.name)"
-            class="cell"
-          >
-            <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'hoenn')}`" class="number" />
-              <Label :text="item.name" class="name" />
-            </StackLayout>
-          </StackLayout>
-        </FlexboxLayout>
-      </StackLayout>
-
-      <Label text="Sinnoh" class="region" />
-      <StackLayout v-if="gen4">
-        <FlexboxLayout flexWrap="wrap" class="list">
-          <StackLayout
-            v-for="(item, index) in gen4"
-            :key="index"
-            @tap="showDetails(getPokeNum(index, 'sinnoh'), item.name)"
-            class="cell"
-          >
-            <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'sinnoh')}`" class="number" />
-              <Label :text="item.name" class="name" />
-            </StackLayout>
-          </StackLayout>
-        </FlexboxLayout>
-      </StackLayout>
-
-      <Label text="Unova" class="region" />
-      <StackLayout v-if="gen5">
-        <FlexboxLayout flexWrap="wrap" class="list">
-          <StackLayout
-            v-for="(item, index) in gen5"
-            :key="index"
-            @tap="showDetails(getPokeNum(index, 'unova'), item.name)"
-            class="cell"
-          >
-            <StackLayout class="cell__inner">
-              <Label :text="`#${getPokeNum(index, 'unova')}`" class="number" />
-              <Label :text="item.name" class="name" />
-            </StackLayout>
-          </StackLayout>
-        </FlexboxLayout>
-      </StackLayout>
-    </StackLayout>
-  </ScrollView>
+    </FlexboxLayout>
+  </StackLayout>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { genOffsets } from '@/utils';
-import Single from '@/components/Single';
+import { formatNum } from '@/utils';
 
 export default {
   name: 'List',
 
-  component: {
-    Single,
+  props: {
+    gen: {
+      type: Number,
+      default: null,
+    },
   },
 
   data() {
-    return {};
+    return {
+      formatNum,
+      pokemon: null,
+    };
   },
 
   computed: {
@@ -116,41 +55,45 @@ export default {
   methods: {
     async getPokemon() {
       try {
-        await this.$store.dispatch('setAllPokemon');
+        await this.$store.dispatch(`setGen${this.gen}`);
+
+        this.pokemon =
+          this.gen === 1
+            ? this.gen1
+            : this.gen === 2
+              ? this.gen2
+              : this.gen === 3
+                ? this.gen3
+                : this.gen === 4
+                  ? this.gen4
+                  : this.gen === 5
+                    ? this.gen5
+                    : this.gen1;
       } catch (e) {
         console.error(e);
       }
     },
 
-    getPokeNum(index, gen) {
-      const { offset } = genOffsets[gen];
-      return `${index + 1 + offset}`;
+    getSprite(index) {
+      const num = this.formatNum(index, this.gen);
+      return `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${num}.png`;
     },
 
-    showDetails(id, name) {
-      this.$navigateTo(Single, {
-        props: { id, name },
-        animated: true,
-        transition: {
-          name: 'slide',
-          duration: 250,
-          curve: 'ease',
-        },
+    showSingle(index, name) {
+      this.$store.dispatch('setView', {
+        component: 'single',
+        index,
+        name,
+        gen: this.gen,
       });
     },
   },
 };
 </script>
 
-<style lang="scss">
-.container {
-  padding: 20;
-}
-
+<style lang="scss" scoped>
 .region {
-  font-family: $ff-space-mono;
-  font-size: 24;
-  font-weight: 700;
+  margin: 20 0;
 }
 
 .list {
@@ -158,21 +101,24 @@ export default {
   justify-content: space-between;
 
   .cell {
-    width: 50%;
-    padding: 5;
+    width: 33%;
 
     &__inner {
-      height: 150;
-      background-color: #eee;
-      border-radius: 10;
-      padding: 20;
+      padding: 10;
+      text-align: center;
 
+      .sprite {
+        width: 80%;
+        max-width: 50;
+      }
       .number {
-        font-family: $ff-space-mono;
-        font-size: 24;
+        font-size: 14;
+        margin: 5 0;
       }
       .name {
+        font-family: $ff-nunito;
         text-transform: capitalize;
+        font-size: 14;
       }
     }
   }
