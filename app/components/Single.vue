@@ -35,16 +35,17 @@
         <Label text="Evolution" fontWeight="bold" />
 
         <FlexboxLayout v-if="singleEvolution.chain.evolves_to.length > 0">
-          <Label :text="singleEvolution.chain.species.name" />
-          <Label :text="singleEvolution.chain.evolves_to[0].species.name" />
-
           <Label
-            v-for="(evolution, i) in singleEvolution.chain.evolves_to[0].evolves_to"
+            v-for="(evolution, i) in evoChain"
             :key="i"
-            :text="evolution.species.name"
             textWrap="true"
             class="evolution"
-          />
+          >
+            <FormattedString>
+              <Span :text="evolution.name" />
+              <Span v-if="i !== evoChain.length - 1" class="arrow"> → </Span>
+            </FormattedString>
+          </Label>
         </FlexboxLayout>
       </StackLayout>
 
@@ -64,20 +65,24 @@
           </Label>
         </FlexboxLayout>
 
-        <FlexboxLayout class="abilities">
+        <StackLayout class="abilities">
           <StackLayout>
-            <Label text="Abilities: " fontWeight="bold" />
+            <Label text="Abilities" fontWeight="bold" />
           </StackLayout>
-          <StackLayout class="list">
+          <FlexboxLayout v-if="single.abilities.length > 0" class="list">
             <Label
-              v-for="ability in single.abilities"
+              v-for="(ability, i) in single.abilities"
               :key="ability.slot"
-              :text="ability.ability.name"
               textWrap="true"
               class="ability"
-            />
-          </StackLayout>
-        </FlexboxLayout>
+            >
+              <FormattedString>
+                <Span :text="ability.ability.name" />
+                <Span v-if="i !== single.abilities.length - 1">, </Span>
+              </FormattedString>
+            </Label>
+          </FlexboxLayout>
+        </StackLayout>
 
         <Label
           v-if="singleSpecies"
@@ -117,6 +122,7 @@ export default {
       formatNum,
       typeColors,
       id: null,
+      evoChain: [],
     };
   },
 
@@ -139,10 +145,32 @@ export default {
       try {
         await this.$store.dispatch('setSingle', this.id);
         await this.$store.dispatch('setSingleSpecies', this.id);
-        await this.$store.dispatch('setSingleEvolution', this.id);
+
+        try {
+          const evolutionChainURL = this.singleSpecies.evolution_chain.url;
+          if (!evolutionChainURL) {
+            return;
+          }
+          const evolutionID = evolutionChainURL.slice(-2).substr(0, 1);
+
+          await this.$store.dispatch('setSingleEvolution', evolutionID);
+
+          this.getEvolutionChain();
+        } catch (e) {
+          console.error(e);
+        }
       } catch (e) {
         console.error(e);
       }
+    },
+
+    getEvolutionChain() {
+      let evoData = this.singleEvolution.chain;
+
+      do {
+        this.evoChain.push({ name: evoData.species.name });
+        evoData = evoData['evolves_to'][0];
+      } while (!!evoData && !!evoData['evolves_to']);
     },
   },
 };
@@ -185,6 +213,10 @@ export default {
   margin-bottom: 20;
   .evolution {
     text-transform: capitalize;
+    .arrow {
+      font-family: $ff-press-start;
+      font-size: 10;
+    }
   }
 }
 .stats {
@@ -197,9 +229,7 @@ export default {
   }
   .abilities {
     .list {
-      flex-grow: 1;
-      label {
-        width: 100%;
+      .ability {
         text-transform: capitalize;
       }
     }
