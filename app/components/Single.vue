@@ -151,8 +151,8 @@ export default {
           if (!evolutionChainURL) {
             return;
           }
-          const evolutionID = evolutionChainURL.slice(-2).substr(0, 1);
-
+          const urlParts = evolutionChainURL.split('/');
+          const evolutionID = urlParts[urlParts.length - 2];
           await this.$store.dispatch('setSingleEvolution', evolutionID);
 
           this.getEvolutionChain();

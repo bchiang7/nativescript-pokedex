@@ -20,6 +20,7 @@ const store = new Vuex.Store({
 
   actions: {
     setView({ commit }, view) {
+      // console.log('📣: setView -> view', view);
       commit('SET_LAST_VIEW', store.state.view);
       commit('SET_VIEW', view);
     },

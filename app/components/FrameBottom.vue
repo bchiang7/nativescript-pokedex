@@ -23,7 +23,7 @@
     </FlexboxLayout>
 
     <Button
-      @tap="back"
+      @tap="forward"
       text="→"
       class=""
     />
@@ -37,11 +37,17 @@ export default {
   name: 'FrameBottom',
 
   computed: {
-    ...mapState(['lastView']),
+    ...mapState(['view', 'lastView']),
   },
 
   methods: {
     back() {
+      // console.log(this.view, `👀👀👀👀👀👀`);
+      // BACK TO LAST HISTORY ITEM
+      this.$store.dispatch('setView', this.lastView);
+    },
+
+    forward() {
       this.$store.dispatch('setView', this.lastView);
     },
   },
