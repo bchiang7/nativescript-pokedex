@@ -25,7 +25,7 @@ tns build <platform> --env.production
 ## Screenshots
 
 <p>
-  <img src="screenshots/menu.png" width="30%" />
-  <img src="screenshots/list.png" width="30%" />
-  <img src="screenshots/single.png" width="30%" />
+  <img src="screenshots/menu.png" width="33%" />
+  <img src="screenshots/list.png" width="33%" />
+  <img src="screenshots/single.png" width="33%" />
 </p>
