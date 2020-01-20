@@ -14,7 +14,7 @@ Vue.config.silent = true;
 
 Vue.prototype.$store = store;
 
-console.warn('📣: main.js', 'addf');
+console.warn('📣: main.js', 'Starting app!');
 
 new Vue({
   store,

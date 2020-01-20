@@ -1,10 +1,10 @@
-# NativeScript-Vue Application
+# NativeScript Pokedex
 
-> A native application built with NativeScript-Vue
+> A Pokedex app built with NativeScript-Vue
 
 ## Usage
 
-``` bash
+```bash
 # Install dependencies
 npm install
 
@@ -21,3 +21,9 @@ tns debug <platform>
 tns build <platform> --env.production
 
 ```
+
+## Screenshots
+
+![Menu](screenshots/menu.png 'menu')
+![List](screenshots/list.png 'list')
+![Single](screenshots/single.png 'single')

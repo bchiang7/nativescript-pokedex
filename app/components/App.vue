@@ -1,5 +1,5 @@
 <template>
-  <Page>
+  <Page actionBarHidden="true">
     <AbsoluteLayout>
       <TopBar />
 
@@ -8,7 +8,7 @@
           <FrameTop />
 
           <StackLayout class="screen">
-            <ScrollView>
+            <ScrollView height="100%">
               <StackLayout>
                 <Menu v-if="view.component === 'menu'" />
                 <List v-if="view.component === 'list'" :gen="view.gen" />
