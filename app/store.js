@@ -7,7 +7,11 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     view: '',
-    lastView: '',
+    viewHistory: {
+      menu: null,
+      list: null,
+      single: null,
+    },
     gen1: null,
     gen2: null,
     gen3: null,
@@ -20,9 +24,16 @@ const store = new Vuex.Store({
 
   actions: {
     setView({ commit }, view) {
-      // console.log('📣: setView -> view', view);
-      commit('SET_LAST_VIEW', store.state.view);
       commit('SET_VIEW', view);
+      commit('SET_VIEW_HISTORY', view);
+    },
+
+    back({ commit }) {
+      commit('BACK');
+    },
+
+    forward({ commit }) {
+      commit('FORWARD');
     },
 
     setGen1({ commit }) {
@@ -89,8 +100,36 @@ const store = new Vuex.Store({
     SET_VIEW: (state, payload) => {
       state.view = payload;
     },
-    SET_LAST_VIEW: (state, payload) => {
-      state.lastView = payload;
+    SET_VIEW_HISTORY: (state, payload) => {
+      state.viewHistory[payload.component] = payload;
+    },
+    BACK: state => {
+      if (state.view.component === 'menu') {
+        return;
+      }
+      if (state.view.component === 'list') {
+        state.view = state.viewHistory.menu;
+      }
+      if (state.view.component === 'single') {
+        state.view = state.viewHistory.list;
+      }
+    },
+    FORWARD: state => {
+      if (state.view.component === 'menu') {
+        if (!state.viewHistory.list) {
+          return;
+        }
+        state.view = state.viewHistory.list;
+      }
+      if (state.view.component === 'list') {
+        if (!state.viewHistory.single) {
+          return;
+        }
+        state.view = state.viewHistory.single;
+      }
+      if (state.view.component === 'single') {
+        return;
+      }
     },
     SET_GEN_1: (state, payload) => {
       state.gen1 = payload.results;

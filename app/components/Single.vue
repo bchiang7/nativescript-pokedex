@@ -16,8 +16,12 @@
     </StackLayout>
 
     <StackLayout class="details">
-      <StackLayout class="types">
-        <Label text="Type" fontWeight="bold" />
+      <FlexboxLayout class="section types">
+        <Label
+          text="Type: "
+          fontWeight="bold"
+          class="label"
+        />
 
         <FlexboxLayout class="type-list">
           <Label
@@ -29,10 +33,14 @@
             class="type"
           />
         </FlexboxLayout>
-      </StackLayout>
+      </FlexboxLayout>
 
-      <StackLayout v-if="singleEvolution" class="evolution-chain">
-        <Label text="Evolution" fontWeight="bold" />
+      <StackLayout v-if="singleEvolution" class="section evolution-chain">
+        <Label
+          text="Evolution"
+          fontWeight="bold"
+          class="label"
+        />
 
         <FlexboxLayout v-if="singleEvolution.chain.evolves_to.length > 0">
           <Label
@@ -49,47 +57,64 @@
         </FlexboxLayout>
       </StackLayout>
 
-      <StackLayout class="stats">
-        <FlexboxLayout class="height-weight">
-          <Label textWrap="true">
+      <FlexboxLayout class="section height-weight">
+        <Label textWrap="true">
+          <FormattedString>
+            <Span
+              text="Height: "
+              fontWeight="bold"
+              class="label"
+            />
+            <Span :text="`${single.height / 10}m`" />
+          </FormattedString>
+        </Label>
+        <Label textWrap="true">
+          <FormattedString>
+            <Span text="Weight: " fontWeight="bold" />
+            <Span :text="`${single.weight}kg`" />
+          </FormattedString>
+        </Label>
+      </FlexboxLayout>
+
+      <StackLayout class="section abilities">
+        <StackLayout>
+          <Label
+            text="Abilities"
+            fontWeight="bold"
+            class="label"
+          />
+        </StackLayout>
+        <FlexboxLayout v-if="single.abilities.length > 0" class="list">
+          <Label
+            v-for="(ability, i) in single.abilities"
+            :key="ability.slot"
+            textWrap="true"
+            class="ability"
+          >
             <FormattedString>
-              <Span text="Height: " fontWeight="bold" />
-              <Span :text="`${single.height / 10}m`" />
-            </FormattedString>
-          </Label>
-          <Label textWrap="true">
-            <FormattedString>
-              <Span text="Weight: " fontWeight="bold" />
-              <Span :text="`${single.weight}kg`" />
+              <Span :text="ability.ability.name" />
+              <Span v-if="i !== single.abilities.length - 1">, </Span>
             </FormattedString>
           </Label>
         </FlexboxLayout>
+      </StackLayout>
 
-        <StackLayout class="abilities">
-          <StackLayout>
-            <Label text="Abilities" fontWeight="bold" />
-          </StackLayout>
-          <FlexboxLayout v-if="single.abilities.length > 0" class="list">
-            <Label
-              v-for="(ability, i) in single.abilities"
-              :key="ability.slot"
-              textWrap="true"
-              class="ability"
-            >
-              <FormattedString>
-                <Span :text="ability.ability.name" />
-                <Span v-if="i !== single.abilities.length - 1">, </Span>
-              </FormattedString>
-            </Label>
-          </FlexboxLayout>
+      <StackLayout class="section abilities">
+        <StackLayout>
+          <Label
+            text="Description"
+            fontWeight="bold"
+            class="label"
+          />
         </StackLayout>
-
-        <Label
-          v-if="singleSpecies"
-          :text="description"
-          textWrap="true"
-          class="description"
-        />
+        <StackLayout>
+          <Label
+            v-if="singleSpecies"
+            :text="description"
+            textWrap="true"
+            class="description"
+          />
+        </StackLayout>
       </StackLayout>
     </StackLayout>
   </StackLayout>
@@ -179,6 +204,11 @@ export default {
 <style lang="scss" scoped>
 .details {
   font-family: $ff-nunito;
+  color: #333333;
+
+  .label {
+    color: $black;
+  }
 }
 .header {
   margin: 10 0 0;
@@ -187,18 +217,19 @@ export default {
   }
 }
 .image {
-  padding: 50;
+  padding: 20 50;
 
   .img {
     width: 50%;
     margin: 0 auto;
   }
 }
+
+.section {
+  margin-bottom: 10;
+}
+
 .types {
-  margin: 0 0 20;
-  .type-list {
-    margin: 10 0 0;
-  }
   .type {
     margin-right: 5;
     text-transform: capitalize;
@@ -210,7 +241,6 @@ export default {
   }
 }
 .evolution-chain {
-  margin-bottom: 20;
   .evolution {
     text-transform: capitalize;
     .arrow {
@@ -219,24 +249,19 @@ export default {
     }
   }
 }
-.stats {
-  .height-weight {
-    justify-content: space-between;
-    margin: 0 0 10 0;
-    label {
-      width: 50%;
-    }
+
+.height-weight {
+  justify-content: space-between;
+  label {
+    width: 50%;
   }
-  .abilities {
-    .list {
-      .ability {
-        text-transform: capitalize;
-      }
-    }
+}
+.abilities {
+  .ability {
+    text-transform: capitalize;
   }
-  .description {
-    font-size: 14;
-    margin: 20 0;
-  }
+}
+.description {
+  font-size: 14;
 }
 </style>

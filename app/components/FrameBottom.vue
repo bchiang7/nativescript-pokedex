@@ -37,18 +37,16 @@ export default {
   name: 'FrameBottom',
 
   computed: {
-    ...mapState(['view', 'lastView']),
+    ...mapState(['view', 'viewHistory']),
   },
 
   methods: {
     back() {
-      // console.log(this.view, `👀👀👀👀👀👀`);
-      // BACK TO LAST HISTORY ITEM
-      this.$store.dispatch('setView', this.lastView);
+      this.$store.dispatch('back');
     },
 
     forward() {
-      this.$store.dispatch('setView', this.lastView);
+      this.$store.dispatch('forward');
     },
   },
 };
