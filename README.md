@@ -24,6 +24,8 @@ tns build <platform> --env.production
 
 ## Screenshots
 
-![Menu](screenshots/menu.png 'menu')
-![List](screenshots/list.png 'list')
-![Single](screenshots/single.png 'single')
+<p>
+  <img src="screenshots/menu.png" width="30%" />
+  <img src="screenshots/list.png" width="30%" />
+  <img src="screenshots/single.png" width="30%" />
+</p>
